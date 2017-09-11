@@ -80,6 +80,7 @@ void htable_print(htable h) {
             printf("%d ", i);
             /* followed by container contents on the same line. */
             container_print(h->keys[i]);
+            printf("\n");
         }
     }
 }

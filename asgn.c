@@ -58,6 +58,10 @@ int main(int argc, char **argv) {
         htable_insert(h, word);
     }
 
+    if (print_hash_table == 1) {
+        htable_print(h);
+    } 
+
     htable_free(h);
 
     return EXIT_SUCCESS;
