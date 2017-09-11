@@ -1,9 +1,12 @@
-#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
+
+#include "mylib.h"
+#include "htable.h"
 
 static const char *HELP_TEXT = 
-    "Usage: asgn [options] file_1 file_2\n"
+    "Usage: asgn [options] dict_file\n"
     " options:\n"
     "  -r\t\tUse a robust chaining method.\n"
     "  -s table-size\tUse table-size as the size of the hash table.\n"
@@ -13,19 +16,17 @@ static const char *HELP_TEXT =
     "  -h\t\tPrint a help message.\n";
 
 int main(int argc, char **argv) {
-    htable dict;        
+    char word[256];
     char option;
     const char *optstring = "r-s:pih";
+    
+    htable dict;        
+    FILE *dict_file;
     int use_robust_chaining = 0;
     int size = 3877;
     int print_hash_table = 0;
     int print_info = 0;
-
-    if (argc < 2) {
-        fprintf(stderr,"%s\n", HELP_TEXT);
-        exit(EXIT_FAILURE);
-    }
-
+    
     while ((option = getopt(argc, argv, optstring)) != EOF) {
         switch (option) {
             case 'r':
@@ -47,6 +48,17 @@ int main(int argc, char **argv) {
                 exit(EXIT_SUCCESS);
         }
     }
+
+    /* Dicitionary file name will be at end of args list after getopt. */
+    dict_file = fopen(argv[argc - 1], "r");
+
+    /* Start reading first file, which will serve as the dictionary. */
+    htable h = htable_new(size, use_robust_chaining);
+    while (getword(word, sizeof word, dict_file) != EOF) {
+        htable_insert(h, word);
+    }
+
+    htable_free(h);
 
     return EXIT_SUCCESS;
 }
