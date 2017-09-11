@@ -33,23 +33,35 @@ extern void *erealloc(void *p, size_t s);
  */
 extern int getword(char *s, int limit, FILE *stream);
 
-/* performs an insertion sort on an integer array, a
-   char **a array of strings.
-   int n size of the array 
+/**
+ * Performs a binary search on an array of strings.
+ * @param char **a The array to search.
+ * @param char *str The string to search for.
+ * @param int len The number of elements in the array.
+ * @return 1 if str was found, 0 otherwise.
+ */
+extern int binary_search(char **a, char *str, int len);
+
+/**
+ * performs an insertion sort on an integer array, a
+ * @param char **a array of strings.
+ * @param int n size of the array 
 */
 extern void insertion_sort(char **a, int n);
 
-/* Merges two sorted subarrays.
-   char **a The array that contains two sorted subarrays.
-   char **w The workspace for merging the subarrays.
-   int len The length of the array.
+/**
+ * Merges two sorted subarrays.
+ * @param char **a The array that contains two sorted subarrays.
+ * @param char **w The workspace for merging the subarrays.
+ * @param int len The length of the array.
 */
 extern void merge(char **a, char **w, int len);
 
-/* performs mergesort on an array.
-   char **a The array to sort.
-   char **w The workspace for the merge.
-   int n  The number of items in the array.
+/**
+ * performs mergesort on an array.
+ * @param char **a The array to sort.
+ * @param char **w The workspace for the merge.
+ * @param int n  The number of items in the array.
 */
 extern void merge_sort(char **a, char **w, int n);
 

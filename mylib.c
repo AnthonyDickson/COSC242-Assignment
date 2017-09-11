@@ -55,6 +55,26 @@ int getword(char *s, int limit, FILE *stream) {
     return w - s;
 }
 
+int binary_search(char **a, char *str, int n) {
+    int left = 0;
+    int middle;
+    int right = n - 1;
+    
+    while (left <= right) {
+        middle = (left + right) / 2;
+
+        if (strcmp(a[middle], str) == 0) {
+            return 1;
+        } else if (strcmp(a[middle], str) < 0) {
+            left = middle + 1;
+        } else if (strcmp(a[middle], str) > 0) {
+            right = middle - 1;
+        }
+    }
+    
+    return 0;
+}
+
 /* performs an insertion sort on an integer array, a
    char **a array of integers
    int n size of the array */

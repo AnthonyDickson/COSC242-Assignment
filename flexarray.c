@@ -8,6 +8,7 @@ struct flexarrayrec {
     int capacity;
     int itemcount;
     char **items;
+    int sorted; /** Keeps track if flexarray was sorted since last append. */
 };
 
 void flexarray_append(flexarray f, char *word) {
@@ -19,6 +20,7 @@ void flexarray_append(flexarray f, char *word) {
     f->items[f->itemcount] = emalloc(strlen(word) + 1);
     strcpy(f->items[f->itemcount], word);
     f->itemcount++; 
+    f->sorted = 0;
 }
 
 void flexarray_free(flexarray f) {
@@ -33,19 +35,15 @@ void flexarray_free(flexarray f) {
 }
 
 int flexarray_is_present(flexarray f, char *word) {
-    int i;
-
     if (f->itemcount == 0) {
         return 0;
     }
-
-    for (i = 0; i < f->itemcount; i++) {
-        if (strcmp(word, f->items[i]) == 0) {
-            return 1;
-        }
+    /* If flexarray hasn't been sorted since last insert */
+    if (f->sorted == 0) {
+        flexarray_sort(f);
     }
 
-    return 0;
+    return binary_search(f->items, word, f->itemcount);
 }
 
 flexarray flexarray_new() {
@@ -54,21 +52,16 @@ flexarray flexarray_new() {
     result->capacity = 2;
     result->itemcount = 0;
     result->items = emalloc(result->capacity * sizeof result->items[0]);
+    result->sorted = 0;
 
     return result;
-}
-
-void flexarray_print(flexarray f) {
-    int i;
-    for (i = 0; i < f->itemcount; i++) {
-        printf("%s\n", f->items[i]);
-    }
 }
 
 void flexarray_sort(flexarray f) {
     char **temp = emalloc(f->itemcount * sizeof(f->items[0]));
     merge_sort(f->items, temp, f->itemcount);
     free(temp);
+    f->sorted = 1;
 }
 
 void flexarray_visit(flexarray f, void func(char *word)) {

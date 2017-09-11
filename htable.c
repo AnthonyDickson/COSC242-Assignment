@@ -68,6 +68,10 @@ htable htable_new(int capacity, int use_robust_chaining) {
 int htable_search(htable h, char *str) {
     int hash = htable_word_to_int(str) % h->capacity;
     
+    if (NULL == h->keys[hash]) {
+        return 0;
+    }
+    
     return container_search(h->keys[hash], str);
 }
 
@@ -80,6 +84,7 @@ void htable_print(htable h) {
             printf("%d ", i);
             /* followed by container contents on the same line. */
             container_print(h->keys[i]);
+            printf("\n");
         }
     }
 }
