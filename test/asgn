@@ -1,2 +1,0 @@
-gcc *.c -o out/asgn
-time valgrind -q out/asgn "$@" > test/out/asgn-test.txt
