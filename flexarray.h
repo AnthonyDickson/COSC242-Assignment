@@ -36,12 +36,6 @@ extern int flexarray_is_present(flexarray f, char *word);
  */
 extern flexarray flexarray_new();
 
-/** 
-* Prints the contents of a flexarray.
-* @param flexarray f The flexarray to print.
-*/
-extern void flexarray_print(flexarray f);
-
 /**
  * Sorts a flexarray.
  * @param flexarray f The flexarray to sort.

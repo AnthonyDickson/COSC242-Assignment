@@ -20,14 +20,6 @@ typedef struct rbt_node *rbt;
  */
 extern rbt rbt_free(rbt r);
 
-/** 
- * Performs an in-order traversal of a rbt and applies the given function 
- * to each node.
- * @param rbt r The rbt to traverse.
- * @param void f(char *key) The function to apply.
- */
- extern void rbt_inorder(rbt r, void f(char *key));
-
 /**
  * Inserts a key into a rbt.
  * Must assign the result to the original rbt to have an effect. 
@@ -43,14 +35,6 @@ extern rbt rbt_free(rbt r);
  * @return The new rbt.
  */
 extern rbt rbt_new();
-
-/** 
- * Performs a post-order traversal of a tree and applies the given function 
- * to each node.
- * @param rbt r The rbt to traverse.
- * @param void f(char *key) The function to apply.
- */
-extern void rbt_postorder(rbt r, void f(char *key));
 
 /** 
 * Performs a pre-order traversal of a tree and applies the given function 

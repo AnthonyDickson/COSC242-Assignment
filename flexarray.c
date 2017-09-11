@@ -57,13 +57,6 @@ flexarray flexarray_new() {
     return result;
 }
 
-void flexarray_print(flexarray f) {
-    int i;
-    for (i = 0; i < f->itemcount; i++) {
-        printf("%s\n", f->items[i]);
-    }
-}
-
 void flexarray_sort(flexarray f) {
     char **temp = emalloc(f->itemcount * sizeof(f->items[0]));
     merge_sort(f->items, temp, f->itemcount);

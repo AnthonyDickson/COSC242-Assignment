@@ -149,43 +149,12 @@ rbt rbt_new() {
     return NULL;
 }
 
-void rbt_inorder(rbt r, void f(char *key)) {
-    int i;
-    
-    if (r == NULL) {
-        return;
-    }
-    
-    rbt_inorder(r->left, f);
-    
-    for (i = 0; i < r->count; i++) {
-        f(r->key);
-    }    
-    
-    rbt_inorder(r->right, f);
-}
-
 rbt rbt_insert(rbt r, char *key) {
     r = insert_helper(r, key);
     /* Ensure that the root node is always coloured black. */
     r->colour = BLACK;
 
     return r;
-}
-
-void rbt_postorder(rbt r, void f(char *key)) {
-    int i;
-    
-    if (r == NULL) {
-        return;
-    }
-    
-    rbt_postorder(r->left, f);
-    rbt_postorder(r->right, f);
-    
-    for (i = 0; i < r->count; i++) {
-        f(r->key);
-    }
 }
 
 void rbt_preorder(rbt r, void f(char *key)) {
