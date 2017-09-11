@@ -35,8 +35,6 @@ void flexarray_free(flexarray f) {
 }
 
 int flexarray_is_present(flexarray f, char *word) {
-    int i;
-
     if (f->itemcount == 0) {
         return 0;
     }

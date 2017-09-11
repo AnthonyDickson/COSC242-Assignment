@@ -10,7 +10,8 @@ static const char *HELP_TEXT =
     "Usage: asgn [options] dict_file\n"
     " options:\n"
     "  -r\t\tUse a robust chaining method.\n"
-    "  -s table-capacity\tUse table-capacity as the capacity of the hash table.\n"
+    "  -s table-capacity\tUse table-capacity as the capacity of the hash"
+    " table.\n"
     "  -p\t\tPrint the hash table.\n"
     "  -i\t\tPrint information about how long things took and number of"
     " unknown words found.\n"
@@ -58,16 +59,16 @@ int main(int argc, char **argv) {
     dict_file = fopen(argv[argc - 1], "r");
 
     /* Start reading first file, which will serve as the dictionary. */
-    htable h = htable_new(capacity, use_robust_chaining);
+    dict = htable_new(capacity, use_robust_chaining);
     while (getword(word, sizeof word, dict_file) != EOF) {
-        htable_insert(h, word);
+        htable_insert(dict, word);
     }
 
     fill_end = clock();
     
     if (print_hash_table == 1) {
-        htable_print(h);
-        htable_free(h);
+        htable_print(dict);
+        htable_free(dict);
         /* After printing the hash table do nothing else.*/
         return EXIT_SUCCESS;
     } 
@@ -76,7 +77,7 @@ int main(int argc, char **argv) {
     
     /* Start reading input file */
     while (getword(word, sizeof word, stdin) != EOF) {
-        if (htable_search(h, word) == 0) {
+        if (htable_search(dict, word) == 0) {
             printf("%s\n", word);
             num_unknown_words++;
         }
@@ -92,7 +93,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Unknown words : %d\n", num_unknown_words); 
     }
 
-    htable_free(h);
+    htable_free(dict);
 
     return EXIT_SUCCESS;
 }
