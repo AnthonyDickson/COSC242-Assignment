@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
                 use_robust_chaining = 1;
                 break;
             case 's':
-                capacity = *optarg;
+                capacity = atoi(optarg);
                 break;
             case 'p':
                 print_hash_table = 1;
