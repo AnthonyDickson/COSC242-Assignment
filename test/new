@@ -1,0 +1,7 @@
+if [ -z "$1" ]
+	then
+	echo "Usage: new-test <name>"
+	exit
+fi
+
+touch test/src/$1-test.c

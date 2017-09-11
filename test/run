@@ -1,0 +1,4 @@
+[ -z "$1" ] && echo "Usage: test/run <test_name>" && exit
+echo "Running test $1.."
+gcc -o out/$1-test test/src/$1-test.c *.c 
+time valgrind --leak-check=full -q out/$1-test > test/out/$1-test.txt
