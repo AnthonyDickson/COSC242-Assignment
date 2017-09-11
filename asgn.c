@@ -13,11 +13,13 @@ static const char *HELP_TEXT =
     "  -h\t\tPrint a help message.\n";
 
 int main(int argc, char **argv) {
+    htable dict;        
     char option;
     const char *optstring = "r-s:pih";
-
     int use_robust_chaining = 0;
     int size = 3877;
+    int print_hash_table = 0;
+    int print_info = 0;
 
     if (argc < 2) {
         fprintf(stderr,"%s\n", HELP_TEXT);
@@ -33,10 +35,10 @@ int main(int argc, char **argv) {
                 size = *optarg;
                 break;
             case 'p':
-                printf("option %c\n", option);
+                print_hash_table = 1;
                 break;
             case 'i':
-                printf("option %c\n", option);
+                print_info = 1;
                 break;
             case 'h':
                 /* Drop through to default case for option h. */
