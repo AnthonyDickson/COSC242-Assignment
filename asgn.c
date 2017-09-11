@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include <unistd.h>
 
 #include "mylib.h"
@@ -27,6 +28,7 @@ int main(int argc, char **argv) {
     htable dict;        
     FILE *dict_file;
     int num_unknown_words = 0;
+    clock_t fill_start, fill_end, search_start, search_end;
         
     while ((option = getopt(argc, argv, optstring)) != EOF) {
         switch (option) {
@@ -50,6 +52,8 @@ int main(int argc, char **argv) {
         }
     }
 
+    fill_start = clock();
+
     /* Dicitionary file name will be at end of args list after getopt. */
     dict_file = fopen(argv[argc - 1], "r");
 
@@ -58,6 +62,8 @@ int main(int argc, char **argv) {
     while (getword(word, sizeof word, dict_file) != EOF) {
         htable_insert(h, word);
     }
+
+    fill_end = clock();
     
     if (print_hash_table == 1) {
         htable_print(h);
@@ -65,6 +71,8 @@ int main(int argc, char **argv) {
         /* After printing the hash table do nothing else.*/
         return EXIT_SUCCESS;
     } 
+
+    search_start = clock();
     
     /* Start reading input file */
     while (getword(word, sizeof word, stdin) != EOF) {
@@ -72,6 +80,16 @@ int main(int argc, char **argv) {
             printf("%s\n", word);
             num_unknown_words++;
         }
+    }
+
+    search_end = clock();
+
+    if (print_info == 1) {
+        fprintf(stderr, "Fill time : %.6f\n", 
+            (fill_end - fill_start) / (double) CLOCKS_PER_SEC);
+        fprintf(stderr, "Search time : %.6f\n", 
+            (search_end - search_start) / (double) CLOCKS_PER_SEC);
+        fprintf(stderr, "Unknown words : %d\n", num_unknown_words); 
     }
 
     htable_free(h);

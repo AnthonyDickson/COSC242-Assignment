@@ -19,7 +19,6 @@ void container_add(container c, char *word) {
         c->contents = rbt_insert(c->contents, word);
     } else {
         flexarray_append(c->contents, word);
-        flexarray_sort(c->contents);
     }
 }
 
