@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
+#include <getopt.h>
 
 #include "mylib.h"
 #include "htable.h"
@@ -63,6 +64,8 @@ int main(int argc, char **argv) {
     while (getword(word, sizeof word, dict_file) != EOF) {
         htable_insert(dict, word);
     }
+
+    fclose(dict_file);
 
     fill_end = clock();
     
