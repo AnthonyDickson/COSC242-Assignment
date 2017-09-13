@@ -8,7 +8,6 @@
 
 struct rbt_node {
     char *key;
-    int count;
     rbt_colour colour;
     rbt left;
     rbt right;
@@ -117,16 +116,13 @@ static rbt rbt_fix(rbt r) {
         r = emalloc(sizeof *r);
         r->key = emalloc(strlen(key) + 1);
         strcpy(r->key, key);
-        r->count = 1;
         r->colour = RED;
         r->left = NULL;
         r->right = NULL;
-    } else if (strcmp(key, r->key) < 0) {
+    } else if (strcmp(key, r->key) <= 0) {
         r->left = insert_helper(r->left, key);
     } else if (strcmp(key, r->key) > 0 ) {
         r->right = insert_helper(r->right, key);
-    } else {
-        r->count++;
     }
     
     return rbt_fix(r);
@@ -158,16 +154,12 @@ rbt rbt_insert(rbt r, char *key) {
 }
 
 void rbt_preorder(rbt r, void f(char *key)) {
-    int i;
     
     if (r == NULL) {
         return;
     }
     
-    for (i = 0; i < r->count; i++) {
-        f(r->key);
-    }
-    
+    f(r->key);
     rbt_preorder(r->left, f);
     rbt_preorder(r->right, f);
 }
@@ -187,6 +179,6 @@ int rbt_search(rbt r, char *key) {
     if (comparison > 0) {
         return rbt_search(r->right, key);
     }
-
-    return r->count; 
+    
+    return 1; 
 }

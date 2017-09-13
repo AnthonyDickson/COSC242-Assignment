@@ -10,13 +10,13 @@
 static const char *HELP_TEXT = 
     "Usage: asgn [options] dict_file\n"
     " options:\n"
-    "  -r\t\tUse a robust chaining method.\n"
+    "  -r\t\t\tUse a robust chaining method.\n"
     "  -s table-capacity\tUse table-capacity as the capacity of the hash"
     " table.\n"
-    "  -p\t\tPrint the hash table.\n"
-    "  -i\t\tPrint information about how long things took and number of"
+    "  -p\t\t\tPrint the hash table.\n"
+    "  -i\t\t\tPrint information about how long things took and number of"
     " unknown words found.\n"
-    "  -h\t\tPrint a help message.\n";
+    "  -h\t\t\tPrint a help message.\n";
 
 int main(int argc, char **argv) {
     char option;
